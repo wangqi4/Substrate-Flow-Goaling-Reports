@@ -351,6 +351,8 @@
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;Current Wip Sort
 "VERSION:","1.0"
@@ -408,6 +410,8 @@
 "a0.group","group_","Y","None","None","Row","c","","csv","SQL->a0.[group]","col6"
 "JOINGRID:"
 "FILTERGRID:"
+
+
 
 
 
@@ -580,6 +584,8 @@
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;PrePostQuery_3
 "VERSION:","1.0"
@@ -666,6 +672,8 @@
 "AND","","a1.entity","Like","'DIA%'","","","c","csv","SQL->a1.[entity]",""
 
 
+
+
 /END_EMBED
 /EMBED=VG2;PrePostQuery_4
 "VERSION:","1.0"
@@ -728,21 +736,21 @@
 "a0.prod","prod","Y","None","None","Row","c","","csv","SQL->a0.[prod]","col6"
 "a0.a1_prodsort","a1_prodsort","Y","None","None","Row","c","","csv","SQL->a0.[a1_prodsort]","col7"
 "a0.operation","operation","Y","None","None","Row","c","","csv","SQL->a0.[operation]","col8"
-"a0.next_shift_dxagoal","next_shift_dxagoal","Y","None","None","Row","c","","csv","SQL->a0.[next_shift_dxagoal]","col15"
+"f(x)->CASE WHEN a0.[next_shift_dxagoal] = '' THEN NULL ELSE CAST (a0.[next_shift_dxagoal] /1000 AS REAL) END","next_shift_dxagoal","Y:2","None","None","Row","F","***next_shift_dxagoal","csv","SQL->CASE WHEN a0.[next_shift_dxagoal] = '' THEN NULL ELSE CAST (a0.[next_shift_dxagoal] /1000 AS REAL) END","col15"
 "a1.prodgroup3","prodgroup3_1","Y","None","None","Row","c","","csv","SQL->a1.[prodgroup3]","col9"
-"f(x)->IFNULL(CASE WHEN a1.[dxa wip] = '' THEN NULL ELSE CAST (a1.[dxa wip] AS REAL) END,0)","dxa wip","Y","None","None","Row","F","***dxa wip","csv","SQL->IFNULL(CASE WHEN a1.[dxa wip] = '' THEN NULL ELSE CAST (a1.[dxa wip] AS REAL) END,0)","col10"
-"f(x)->IFNULL(CASE WHEN a1.[packed wip] = '' THEN NULL ELSE CAST (a1.[packed wip] AS REAL) END,0)","packed wip","Y","None","None","Row","F","***packed wip","csv","SQL->IFNULL(CASE WHEN a1.[packed wip] = '' THEN NULL ELSE CAST (a1.[packed wip] AS REAL) END,0)","col11"
-"f(x)->IFNULL(CASE WHEN a1.[ctc shift start wip] = '' THEN NULL ELSE CAST (a1.[ctc shift start wip] AS REAL) END,0)","ctc shift start wip","Y","None","None","Row","F","***ctc shift start wip","csv","SQL->IFNULL(CASE WHEN a1.[ctc shift start wip] = '' THEN NULL ELSE CAST (a1.[ctc shift start wip] AS REAL) END,0)","col12"
-"f(x)->CASE WHEN  {next_shift_dxagoal}- {packed wip} <0  THEN 0 ELSE ({next_shift_dxagoal}- {packed wip})/1000 END","goal","Y","None","None","Row","F","***","@if@1","SQL->CASE WHEN  {col15}- {col11} <0  THEN 0 ELSE ({col15}- {col11})/1000 END","col16"
+"f(x)->IFNULL(CASE WHEN a1.[dxa wip] = '' THEN NULL ELSE CAST (a1.[dxa wip]/1000 AS REAL) END,0)","dxa wip","Y:2","None","None","Row","F","***dxa wip","csv","SQL->IFNULL(CASE WHEN a1.[dxa wip] = '' THEN NULL ELSE CAST (a1.[dxa wip]/1000 AS REAL) END,0)","col10"
+"f(x)->IFNULL(CASE WHEN a1.[packed wip] = '' THEN NULL ELSE CAST (a1.[packed wip] /1000 AS REAL) END,0)","packed wip","Y:2","None","None","Row","F","***packed wip","csv","SQL->IFNULL(CASE WHEN a1.[packed wip] = '' THEN NULL ELSE CAST (a1.[packed wip] /1000 AS REAL) END,0)","col11"
+"f(x)->IFNULL(CASE WHEN a1.[ctc shift start wip] = '' THEN NULL ELSE CAST (a1.[ctc shift start wip]/1000  AS REAL) END,0)","ctc shift start wip","Y:2","None","None","Row","F","***ctc shift start wip","csv","SQL->IFNULL(CASE WHEN a1.[ctc shift start wip] = '' THEN NULL ELSE CAST (a1.[ctc shift start wip]/1000  AS REAL) END,0)","col12"
+"f(x)->CASE WHEN  {next_shift_dxagoal}- {packed wip} <0  THEN 0 ELSE {next_shift_dxagoal}- {packed wip} END","goal","Y:2","None","None","Row","F","***","@if@1","SQL->CASE WHEN  {col15}- {col11} <0  THEN 0 ELSE {col15}- {col11} END","col16"
 "f(x)->RANK () OVER (PARTITION BY  {prodgroup3}  ORDER BY  {shelf_date} ASC)","row_number","Y","None","None","Row","F","***","csv","SQL->RANK () OVER (PARTITION BY  {col1}  ORDER BY  {col4} ASC)","col17"
 "f(x)->CASE WHEN  {next_shift_dxagoal}+ {ctc shift start wip}+ {dxa wip} + {packed wip}+ {output} =0    THEN 'N' ELSE 'Y' END","filter","Y","None","None","Row","C","***","@if@1","SQL->CASE WHEN  {col15}+ {col12}+ {col10} + {col11}+ {col20} =0    THEN 'N' ELSE 'Y' END","col18"
 "a2.prodgroup3","prodgroup3_2","Y","None","None","Row","c","","csv","SQL->a2.[prodgroup3]","col19"
-"f(x)->IFNULL(CASE WHEN a2.[newqty1] = '' THEN NULL ELSE CAST (a2.[newqty1] AS REAL) END,0)","output","Y","None","None","Row","F","***newqty1","csv","SQL->IFNULL(CASE WHEN a2.[newqty1] = '' THEN NULL ELSE CAST (a2.[newqty1] AS REAL) END,0)","col20"
+"f(x)->IFNULL(CASE WHEN a2.[newqty1] = '' THEN NULL ELSE CAST (a2.[newqty1] /1000 AS REAL) END,0)","output","Y","None","None","Row","F","***newqty1","csv","SQL->IFNULL(CASE WHEN a2.[newqty1] = '' THEN NULL ELSE CAST (a2.[newqty1] /1000 AS REAL) END,0)","col20"
 "f(x)->'https://content.sp2019.intel.com/sites/CD/CDATwebshare/IonReport/TEST_Goaling_Reports/' ||   {prodgroup3} || '.htm'","link0","Y","None","None","Row","C","***","csv","SQL->'https://content.sp2019.intel.com/sites/CD/CDATwebshare/IonReport/TEST_Goaling_Reports/' ||   {col1} || '.htm'","col21"
 "f(x)->SPF_Fn$HTML(  {link0} ,  {prodgroup3} )","link1","Y","None","None","Row","C","***","@if@1","SQL->SPF_Fn$HTML(  {col21} ,  {col1} )","col22"
 "f(x)->REPLACE(   {link1} ,'href','target=''_blank'' href')","link2","Y","None","None","Row","C","***","@if@2","SQL->REPLACE(   {col22} ,'href','target=''_blank'' href')","col23"
 "a4.prod","prod_1","Y","None","None","Row","c","","csv","SQL->a4.[prod]","col25"
-"f(x)->mor","mor","Y","None","None","Row","f","mor","csv","SQL->CASE WHEN a4.[mor] = '' THEN NULL ELSE CAST (a4.[mor] AS REAL) END","col26"
+"f(x)->mor","mor","Y:2","None","None","Row","f","mor","csv","SQL->CASE WHEN a4.[mor] = '' THEN NULL ELSE CAST (a4.[mor] AS REAL) END","col26"
 "f(x)->{goal} / {mor}","TR","Y:1","None","None","Row","F","***","@if@2","SQL->{col16} / {col26}","col27"
 "JOINGRID:"
 "","","Sqlite->a0.prodgroup3                                                                                                    : SQL->{col1}","=","Sqlite->a1.prodgroup3                                                                                                    : SQL->{col9}",""
@@ -752,8 +760,6 @@
 "FILTERGRID:"
 "AND","","f(x)->{row_number}","=","1","","","fx","@IF@1","SQL->{col17}",""
 "AND","","f(x)->{filter}","=","'Y'","","","cx","@IF@2","SQL->{col18}",""
-
-
 
 /END_EMBED
 /EMBED=VG2;PrePostQuery_29
@@ -1018,6 +1024,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;Calendar
 "VERSION:","1.0"
@@ -1146,6 +1154,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;PrePostQuery_32_0
 "VERSION:","1.0"
@@ -1229,6 +1239,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "AND","","a1.operation","In Temp"," {Sqlite (all)} : Sqlite->a0.operation","","","c","f_lothist","a1->f0.operation","SQL->{col16}"
 "AND","","a1.owner","=","'PROD'","","","c","f_lothist","a1->f0.owner",""
 "AND","","a1.out_date",">=","SPF_FN$Current_Shift(7)","",".","d","f_lothist","a1->f0.out_date",""
+
+
 
 
 
@@ -1388,6 +1400,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;PrePostQuery_34_0
 "VERSION:","1.0"
@@ -1444,6 +1458,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "f(x)->{newqty1} /1000","output","Y:2","None","Sum","Value","F","***","@if@1","SQL->{col3} /1000","col4"
 "JOINGRID:"
 "FILTERGRID:"
+
+
 
 
 
@@ -1683,6 +1699,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;Mor Table_0
 "VERSION:","1.0"
@@ -1738,6 +1756,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "a0.code","code","Y","None","None","Row","c","","csv","SQL->a0.[code]","col5"
 "JOINGRID:"
 "FILTERGRID:"
+
+
 
 
 
@@ -1898,6 +1918,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "AND","","a1.operation","In","'1173'</comma\>'1235'","","","c","csv","SQL->a1.[operation]",""
 "AND","","a2.operation","In","'2150'","","","c","csv","SQL->a2.[operation]",""
 "AND","","f(x)->{filter}","=","'Y'","","","cx","@IF@2","SQL->{col11}",""
+
+
 
 
 
@@ -2150,6 +2172,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;PrePostQuery_39
 "VERSION:","1.0"
@@ -2206,6 +2230,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "JOINGRID:"
 "FILTERGRID:"
 "AND","","f(x)->quantity",">","0","","","f","csv","SQL->CASE WHEN a0.[quantity] = '' THEN NULL ELSE CAST (a0.[quantity] AS REAL) END",""
+
+
 
 
 
@@ -2451,6 +2477,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;PrePostQuery_41
 "VERSION:","1.0"
@@ -2509,6 +2537,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "JOINGRID:"
 "","","Sqlite->a0.operation                                                                                                    : SQL->{col2}","=","Sqlite->a1.operation                                                                                                    : SQL->{col4}",""
 "FILTERGRID:"
+
+
 
 
 
@@ -2784,6 +2814,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;PrePostQuery_43
 "VERSION:","1.0"
@@ -2858,6 +2890,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "a0.ww_shift","ww_shift","Y","None","None","Row","c","","csv","SQL->a0.[ww_shift]","col103"
 "JOINGRID:"
 "FILTERGRID:"
+
+
 
 
 
@@ -3102,6 +3136,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "FILTERGRID:"
 
 
+
+
 /END_EMBED
 /EMBED=VG2;Calendar New
 "VERSION:","1.0"
@@ -3265,6 +3301,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;LID Output
 "VERSION:","1.0"
@@ -3327,6 +3365,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "AND","","a0.operation","=","'0683'","","","c","f_lothist","a0->f0.operation",""
 "AND","","a0.prodgroup3","Like","'LID%'","","","c","f_product","a0->p.prodgroup3",""
 "AND","","a0.owner","=","'PROD'","","","c","f_lothist","a0->f0.owner",""
+
+
 
 
 
@@ -3404,6 +3444,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;PrePostQuery_23
 "VERSION:","1.0"
@@ -3469,6 +3511,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "AND","","a0.quantity",">","0","","","n","f_lot","a0->f0.qty1",""
 "AND","","a0.src_erase_date","Is Null","","","","d","f_lot","a0->f0.src_erase_date",""
 "AND","","a0.prodgroup3","In Group",".\Lid_product.tab:2. prodgroup3","","","c","f_product","a0->p.prodgroup3",""
+
+
 
 
 
@@ -3543,6 +3587,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 
 
 
+
+
 /END_EMBED
 /EMBED=VG2;LID CTC MOR
 "VERSION:","1.0"
@@ -3603,6 +3649,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "AND","","a0.b","Like","'CTT%'","","","c","csv","SQL->a0.[b]",""
 "AND","","a0.a","Like","'CTC ERGO TO JLP PRE DLA%'","","","c","csv","SQL->a0.[a]",""
 "AND","","f(x)->p","<","500","","","f","csv","SQL->CASE WHEN a0.[p] = '' THEN NULL ELSE CAST (a0.[p] AS REAL) END",""
+
+
 
 
 
@@ -3671,6 +3719,8 @@ Type<\\>Key<\\>COL1<\\>COL2<\\>COL3<\\>COL4<\\>COL5<\\>COL6<\\>COL7<\\>COL8<\\>C
 "f(x)->tr","tr","Y:2","None","Sum","Row","f","tr","csv","SQL->CASE WHEN a0.[tr] = '' THEN NULL ELSE CAST (a0.[tr] AS REAL) END","col9"
 "JOINGRID:"
 "FILTERGRID:"
+
+
 
 
 
